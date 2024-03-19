@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+
+<body>
+    <div class="login-page">
+
+        <div class="container">
+            <h2>Login Page</h2>
+            <div class="content">
+
+                <form action="login-process.html" method="post">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <button type="submit">Login</button>
+                </form>
+
+                <p>Don't have an account? <a href="register.html">Register here</a></p>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loginForm = document.querySelector('form');
+
+            loginForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                const storedUserData = localStorage.getItem('userData');
+
+                if (storedUserData) {
+                    const storedUser = JSON.parse(storedUserData);
+
+                    if (username === storedUser.username && password === storedUser.password) {
+                        window.location.href = '../main.html'
+                        alert('Login successful!');
+                        storedUser.loggedIn = true;
+                    } else {
+                        alert('Invalid username or password.');
+                    }
+                } else {
+                    alert('No user data found. Please register.');
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
